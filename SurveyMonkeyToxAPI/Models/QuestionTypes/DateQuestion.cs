@@ -5,11 +5,12 @@ namespace SurveyMonkeyToxAPI.Models.QuestionTypes
 {
     public class DateQuestion : IQuestionType
     {
-        private JObject _questionData;
+        private JArray _rows;
 
         public DateQuestion(JObject questionData)
         {
-            _questionData = questionData;
+            if ((questionData["answers"] != null) && (questionData["answers"]["rows"] != null)) _rows = (JArray)questionData["answers"]["rows"];
+            else _rows = new JArray();
         }
 
         public JObject GetxAPIStatement()

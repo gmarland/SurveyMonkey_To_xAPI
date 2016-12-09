@@ -50,9 +50,7 @@
     <Compile Include="Models\Question.cs" />
     <Compile Include="Models\QuestionType.cs" />
     <Compile Include="Models\QuestionTypes\DateQuestion.cs" />
-    <Compile Include="Models\QuestionTypes\Demographic.cs" />
     <Compile Include="Models\QuestionTypes\IQuestionType.cs" />
-    <Compile Include="Models\QuestionTypes\MatrixMenu.cs" />
     <Compile Include="Models\QuestionTypes\MatrixMultiple.cs" />
     <Compile Include="Models\QuestionTypes\MatrixRanking.cs" />
     <Compile Include="Models\QuestionTypes\MatrixRating.cs" />

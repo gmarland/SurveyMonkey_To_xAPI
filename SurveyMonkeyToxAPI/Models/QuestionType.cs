@@ -8,11 +8,9 @@
         MatrixMultiple,
         MatrixRating,
         MatrixRanking,
-        MatrixMenu,
         OpenEndedSingle,
         OpenEndedMulti,
         OpenEndedNumerical,
-        Demographic,
         DateQuestion,
         Unknown
     }

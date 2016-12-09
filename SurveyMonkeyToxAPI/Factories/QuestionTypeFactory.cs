@@ -35,8 +35,6 @@ namespace SurveyMonkeyToxAPI.Factories
                             return QuestionType.MatrixRating;
                         case "ranking":
                             return QuestionType.MatrixRanking;
-                        case "menu":
-                            return QuestionType.MatrixMenu;
                     }
                     break;
                 case "open_ended":
@@ -50,8 +48,6 @@ namespace SurveyMonkeyToxAPI.Factories
                             return QuestionType.OpenEndedNumerical;
                     }
                     break;
-                case "demographic":
-                    return QuestionType.Demographic;
                 case "datetime":
                     return QuestionType.DateQuestion;
             }
@@ -75,16 +71,12 @@ namespace SurveyMonkeyToxAPI.Factories
                     return new MatrixRating(questionData);
                 case QuestionType.MatrixRanking:
                     return new MatrixRanking(questionData);
-                case QuestionType.MatrixMenu:
-                    return new MatrixMenu(questionData);
                 case QuestionType.OpenEndedSingle:
                     return new OpenEndedSingle(questionData);
                 case QuestionType.OpenEndedMulti:
                     return new OpenEndedMulti(questionData);
                 case QuestionType.OpenEndedNumerical:
                     return new OpenEndedNumerical(questionData);
-                case QuestionType.Demographic:
-                    return new Demographic(questionData);
                 case QuestionType.DateQuestion:
                     return new DateQuestion(questionData);
             }

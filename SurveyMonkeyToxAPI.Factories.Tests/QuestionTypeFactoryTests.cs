@@ -17,11 +17,9 @@ namespace SurveyMonkeyToxAPI.Factories.Tests
             Assert.AreEqual(QuestionType.MatrixMultiple, QuestionTypeFactory.GetQuestionType("matrix", "multiple"));
             Assert.AreEqual(QuestionType.MatrixRating, QuestionTypeFactory.GetQuestionType("matrix", "rating"));
             Assert.AreEqual(QuestionType.MatrixRanking, QuestionTypeFactory.GetQuestionType("matrix", "ranking"));
-            Assert.AreEqual(QuestionType.MatrixMenu, QuestionTypeFactory.GetQuestionType("matrix", "menu"));
             Assert.AreEqual(QuestionType.OpenEndedSingle, QuestionTypeFactory.GetQuestionType("open_ended", "single"));
             Assert.AreEqual(QuestionType.OpenEndedMulti, QuestionTypeFactory.GetQuestionType("open_ended", "multi"));
             Assert.AreEqual(QuestionType.OpenEndedNumerical, QuestionTypeFactory.GetQuestionType("open_ended", "numerical"));
-            Assert.AreEqual(QuestionType.Demographic, QuestionTypeFactory.GetQuestionType("demographic"));
             Assert.AreEqual(QuestionType.DateQuestion, QuestionTypeFactory.GetQuestionType("datetime"));
 
             Assert.AreEqual(QuestionType.Unknown, QuestionTypeFactory.GetQuestionType("random"));
@@ -36,11 +34,9 @@ namespace SurveyMonkeyToxAPI.Factories.Tests
             Assert.IsInstanceOfType(QuestionTypeFactory.GetQuestionTypeModule(QuestionType.MatrixMultiple, null), typeof(MatrixMultiple));
             Assert.IsInstanceOfType(QuestionTypeFactory.GetQuestionTypeModule(QuestionType.MatrixRating, null), typeof(MatrixRating));
             Assert.IsInstanceOfType(QuestionTypeFactory.GetQuestionTypeModule(QuestionType.MatrixRanking, null), typeof(MatrixRanking));
-            Assert.IsInstanceOfType(QuestionTypeFactory.GetQuestionTypeModule(QuestionType.MatrixMenu, null), typeof(MatrixMenu));
             Assert.IsInstanceOfType(QuestionTypeFactory.GetQuestionTypeModule(QuestionType.OpenEndedSingle, null), typeof(OpenEndedSingle));
             Assert.IsInstanceOfType(QuestionTypeFactory.GetQuestionTypeModule(QuestionType.OpenEndedMulti, null), typeof(OpenEndedMulti));
             Assert.IsInstanceOfType(QuestionTypeFactory.GetQuestionTypeModule(QuestionType.OpenEndedNumerical, null) , typeof(OpenEndedNumerical));
-            Assert.IsInstanceOfType(QuestionTypeFactory.GetQuestionTypeModule(QuestionType.Demographic, null), typeof(Demographic));
             Assert.IsInstanceOfType(QuestionTypeFactory.GetQuestionTypeModule(QuestionType.DateQuestion, null), typeof(DateQuestion));
 
             Assert.AreEqual(null, QuestionTypeFactory.GetQuestionTypeModule(QuestionType.Unknown, null));
