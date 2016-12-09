@@ -4,4 +4,3 @@ C:\Src\SurveyMonkeyToxAPI\SurveyMonkeyToxAPI\bin\Debug\Newtonsoft.Json.dll
 C:\Src\SurveyMonkeyToxAPI\SurveyMonkeyToxAPI\bin\Debug\Newtonsoft.Json.xml
 C:\Src\SurveyMonkeyToxAPI\SurveyMonkeyToxAPI\obj\Debug\SurveyMonkeyToxAPI.dll
 C:\Src\SurveyMonkeyToxAPI\SurveyMonkeyToxAPI\obj\Debug\SurveyMonkeyToxAPI.pdb
-C:\Src\SurveyMonkeyToxAPI\SurveyMonkeyToxAPI\obj\Debug\SurveyMonkeyToxAPI.csprojResolveAssemblyReference.cache

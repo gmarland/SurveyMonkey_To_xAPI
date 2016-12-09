@@ -1,6 +1,5 @@
 C:\Src\SurveyMonkeyToxAPI\SurveyMonkeyToxAPI.Factories.Tests\bin\Debug\SurveyMonkeyToxAPI.Factories.Tests.dll
 C:\Src\SurveyMonkeyToxAPI\SurveyMonkeyToxAPI.Factories.Tests\bin\Debug\SurveyMonkeyToxAPI.Factories.Tests.pdb
-C:\Src\SurveyMonkeyToxAPI\SurveyMonkeyToxAPI.Factories.Tests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
 C:\Src\SurveyMonkeyToxAPI\SurveyMonkeyToxAPI.Factories.Tests\bin\Debug\Newtonsoft.Json.dll
 C:\Src\SurveyMonkeyToxAPI\SurveyMonkeyToxAPI.Factories.Tests\bin\Debug\SurveyMonkeyToxAPI.dll
 C:\Src\SurveyMonkeyToxAPI\SurveyMonkeyToxAPI.Factories.Tests\bin\Debug\SurveyMonkeyToxAPI.pdb
