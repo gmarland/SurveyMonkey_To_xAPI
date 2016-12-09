@@ -32,7 +32,7 @@ namespace SurveyMonkeyToxAPI.Models
             {
                 JArray headings = (JArray)questionData["headings"];
 
-                if (headings.Count > 0) return headings.First.ToString();
+                if ((headings.Count > 0) && (headings.First["heading"] != null)) return (string)headings.First["heading"];
             }
 
             return string.Empty;

@@ -24,6 +24,21 @@ namespace SurveyMonkeyToxAPI.Models
 
             if (pageJObject["position"] != null) Position = (int)pageJObject["position"];
             else throw new Exception("A page position could not be found");
+            
+            if (pageJObject["questions"] != null) Questions = ParseQuestions((JArray)pageJObject["questions"]);
+            else Questions = new List<Question>();
+        }
+
+        private List<Question> ParseQuestions(JArray questions)
+        {
+            List<Question> builtQuestions = new List<Question>();
+
+            foreach (JObject question in questions)
+            {
+                builtQuestions.Add(new Question(question));
+            }
+
+            return builtQuestions;
         }
 
         public string Id { get; set; }
