@@ -35,7 +35,20 @@ namespace SurveyMonkeyToxAPI.Models
             if (surveyJObject["date_modified"] != null) Modified = (DateTime)surveyJObject["date_modified"];
             else throw new Exception("A survey date_modified could not be found");
 
-            Pages = new List<Page>();
+            if (surveyJObject["pages"] != null) Pages = ParsePages((JArray)surveyJObject["pages"]);
+            else Pages = new List<Page>();
+        }
+
+        private List<Page> ParsePages(JArray pages)
+        {
+            List<Page> builtPages = new List<Page>();
+
+            foreach (JObject page in pages)
+            {
+                builtPages.Add(new Page(page));
+            }
+
+            return builtPages;
         }
 
         public string Id { get; set; }
