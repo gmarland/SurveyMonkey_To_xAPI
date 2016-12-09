@@ -1,9 +1,0 @@
-C:\Src\SurveyMonkeyToxAPI\SurveyMonkeyToxAPI.Factories.Tests\bin\Debug\SurveyMonkeyToxAPI.Factories.Tests.dll
-C:\Src\SurveyMonkeyToxAPI\SurveyMonkeyToxAPI.Factories.Tests\bin\Debug\SurveyMonkeyToxAPI.Factories.Tests.pdb
-C:\Src\SurveyMonkeyToxAPI\SurveyMonkeyToxAPI.Factories.Tests\bin\Debug\Newtonsoft.Json.dll
-C:\Src\SurveyMonkeyToxAPI\SurveyMonkeyToxAPI.Factories.Tests\bin\Debug\SurveyMonkeyToxAPI.dll
-C:\Src\SurveyMonkeyToxAPI\SurveyMonkeyToxAPI.Factories.Tests\bin\Debug\SurveyMonkeyToxAPI.pdb
-C:\Src\SurveyMonkeyToxAPI\SurveyMonkeyToxAPI.Factories.Tests\bin\Debug\Newtonsoft.Json.xml
-C:\Src\SurveyMonkeyToxAPI\SurveyMonkeyToxAPI.Factories.Tests\obj\Debug\SurveyMonkeyToxAPI.Factories.Tests.csprojResolveAssemblyReference.cache
-C:\Src\SurveyMonkeyToxAPI\SurveyMonkeyToxAPI.Factories.Tests\obj\Debug\SurveyMonkeyToxAPI.Factories.Tests.dll
-C:\Src\SurveyMonkeyToxAPI\SurveyMonkeyToxAPI.Factories.Tests\obj\Debug\SurveyMonkeyToxAPI.Factories.Tests.pdb
