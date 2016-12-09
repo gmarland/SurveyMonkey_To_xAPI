@@ -9,7 +9,7 @@ namespace SurveyMonkeyToxAPI.Models.QuestionTypes
 
         public Multiple(JObject questionData)
         {
-            if ((questionData["answers"] != null) && (questionData["answers"]["choices"] != null)) _choices = (JArray)questionData["answers"]["choices"];
+            if ((questionData != null) && (questionData["answers"] != null) && (questionData["answers"]["choices"] != null)) _choices = (JArray)questionData["answers"]["choices"];
             else _choices = new JArray();
         }
 

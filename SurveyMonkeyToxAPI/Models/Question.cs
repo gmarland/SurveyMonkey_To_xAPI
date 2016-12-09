@@ -9,6 +9,9 @@ namespace SurveyMonkeyToxAPI.Models
     {
         public Question(JObject questionData)
         {
+            if (questionData["id"] != null) Id = (string)questionData["id"];
+            else throw new Exception("A quesion id could not be found");
+
             Heading = GetHeading(questionData);
 
             Position = GetPosition(questionData);
@@ -17,6 +20,8 @@ namespace SurveyMonkeyToxAPI.Models
 
             QuestionModule = QuestionTypeFactory.GetQuestionTypeModule(QuestionType, questionData);
         }
+
+        public string Id { get; set; }
 
         public string Heading { get; set; }
 

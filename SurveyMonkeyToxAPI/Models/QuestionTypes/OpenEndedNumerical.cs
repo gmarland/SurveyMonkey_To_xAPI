@@ -9,7 +9,7 @@ namespace SurveyMonkeyToxAPI.Models.QuestionTypes
 
         public OpenEndedNumerical(JObject questionData)
         {
-            if ((questionData["answers"] != null) && (questionData["answers"]["rows"] != null)) _rows = (JArray)questionData["answers"]["rows"];
+            if ((questionData != null) && (questionData["answers"] != null) && (questionData["answers"]["rows"] != null)) _rows = (JArray)questionData["answers"]["rows"];
             else _rows = new JArray();
         }
 

@@ -36,9 +36,9 @@ namespace SurveyMonkeyToxAPI.Factories.Tests
             Assert.AreEqual(DateTime.Parse("2012-06-25T14:02:00"), survey.Created);
             Assert.AreEqual(DateTime.Parse("2016-12-09T02:23:00"), survey.Modified);
         }
-        
+
         [TestMethod]
-        public void GetSurveyPages()
+        public void TestSurveyPages()
         {
             JObject surveyJObject = JObject.Parse(_surveyJSON);
 
@@ -55,6 +55,46 @@ namespace SurveyMonkeyToxAPI.Factories.Tests
             Assert.AreEqual("Page 2", survey.Pages[1].Title);
             Assert.AreEqual("Test Description", survey.Pages[1].Description);
             Assert.AreEqual(2, survey.Pages[1].Position);
+        }
+
+        [TestMethod]
+        public void TestSurveyQuestions()
+        {
+            JObject surveyJObject = JObject.Parse(_surveyJSON);
+
+            Survey survey = new Survey(surveyJObject);
+
+            Assert.AreEqual(2, survey.Pages.Count);
+
+            Assert.AreEqual(8, survey.Pages[0].Questions.Count);
+            Assert.AreEqual(1, survey.Pages[1].Questions.Count);
+
+            Assert.AreEqual("1047686238", survey.Pages[0].Questions[0].Id);
+            Assert.AreEqual("This is a multiple choice", survey.Pages[0].Questions[0].Heading);
+
+            Assert.AreEqual("1047686242", survey.Pages[0].Questions[1].Id);
+            Assert.AreEqual("This is a star rating", survey.Pages[0].Questions[1].Heading);
+
+            Assert.AreEqual("1047686363", survey.Pages[0].Questions[2].Id);
+            Assert.AreEqual("This is a matrix scale", survey.Pages[0].Questions[2].Heading);
+
+            Assert.AreEqual("1047686456", survey.Pages[0].Questions[3].Id);
+            Assert.AreEqual("This is a ranking", survey.Pages[0].Questions[3].Heading);
+
+            Assert.AreEqual("1047686579", survey.Pages[0].Questions[4].Id);
+            Assert.AreEqual("This is a slider", survey.Pages[0].Questions[4].Heading);
+
+            Assert.AreEqual("1047686621", survey.Pages[0].Questions[5].Id);
+            Assert.AreEqual("This is a single textbox", survey.Pages[0].Questions[5].Heading);
+
+            Assert.AreEqual("1047686677", survey.Pages[0].Questions[6].Id);
+            Assert.AreEqual("This is a multiple textbox", survey.Pages[0].Questions[6].Heading);
+
+            Assert.AreEqual("1047686717", survey.Pages[0].Questions[7].Id);
+            Assert.AreEqual("This is a comment box", survey.Pages[0].Questions[7].Heading);
+
+            Assert.AreEqual("1047686867", survey.Pages[1].Questions[0].Id);
+            Assert.AreEqual("This is a date time", survey.Pages[1].Questions[0].Heading);
         }
     }
 }
