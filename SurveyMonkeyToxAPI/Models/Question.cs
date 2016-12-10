@@ -44,8 +44,8 @@ namespace SurveyMonkeyToxAPI.Models
             questionxAPI["actor"]["mbox"] = "mailto:" + email;
 
             questionxAPI["verb"] = new JObject();
-            questionxAPI["id"] = QuestionModule.GetVerb();
-            questionxAPI["display"] = QuestionModule.GetReadableVerb();
+            questionxAPI["verb"]["id"] = QuestionModule.GetVerb();
+            questionxAPI["verb"]["display"] = QuestionModule.GetReadableVerb();
 
             questionxAPI["result"] = QuestionModule.GetResultxAPI(questionResponse);
 
