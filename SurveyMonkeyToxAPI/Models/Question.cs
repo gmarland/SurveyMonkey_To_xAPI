@@ -31,7 +31,7 @@ namespace SurveyMonkeyToxAPI.Models
 
         #region Public Methods
 
-        public JObject GetxAPIStatement(Response response)
+        public JObject GetxAPIStatement(string email, JObject questionResponse)
         {
             // the identifier of the statement
             JObject questionxAPI = new JObject();
@@ -41,9 +41,13 @@ namespace SurveyMonkeyToxAPI.Models
             // add the person who took the survey
             questionxAPI["actor"] = new JObject();
             questionxAPI["actor"]["objectType"] = "Agent";
-            questionxAPI["actor"]["mbox"] = "mailto:" + response.Email;
+            questionxAPI["actor"]["mbox"] = "mailto:" + email;
 
-            questionxAPI["result"] = QuestionModule.GetResultxAPI(response);
+            questionxAPI["verb"] = new JObject();
+            questionxAPI["id"] = QuestionModule.GetVerb();
+            questionxAPI["display"] = QuestionModule.GetReadableVerb();
+
+            questionxAPI["result"] = QuestionModule.GetResultxAPI(questionResponse);
 
             // add details about the question
             questionxAPI["object"] = new JObject();

@@ -25,6 +25,23 @@ namespace SurveyMonkeyToxAPI.Models
 
         #endregion
 
+        #region Public Methods
+
+        public JObject GetQuestion(string questionId)
+        {
+            foreach (JObject question in Questions)
+            {
+                if (((string)question["id"] != null) && ((string)question["id"] == questionId))
+                {
+                    return question;
+                }
+            }
+
+            return new JObject();
+        }
+
+        #endregion
+
         #region Private Methods
 
         private void ParseRespondantEmail(JObject responseData)

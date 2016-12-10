@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using SurveyMonkeyToxAPI.Helpers;
 using System;
 using System.Collections.Generic;
 
@@ -21,7 +22,17 @@ namespace SurveyMonkeyToxAPI.Models.QuestionTypes
             else _choices = new JArray();
         }
 
-        public JObject GetResultxAPI(Response response)
+        public string GetVerb()
+        {
+            return _verb;
+        }
+
+        public JObject GetReadableVerb()
+        {
+            return JSONHelper.DictionaryToJSON(_verbDisplays);
+        }
+
+        public JObject GetResultxAPI(JObject questionResponse)
         {
             throw new NotImplementedException();
         }

@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Factories\QuestionTypeFactory.cs" />
+    <Compile Include="Helpers\JSONHelper.cs" />
     <Compile Include="Helpers\TextHelper.cs" />
     <Compile Include="ITranslation.cs" />
     <Compile Include="Models\Page.cs" />

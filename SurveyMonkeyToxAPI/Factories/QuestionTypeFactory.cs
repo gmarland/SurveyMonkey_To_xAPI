@@ -41,6 +41,7 @@ namespace SurveyMonkeyToxAPI.Factories
                     switch (subtype.Trim().ToLower())
                     {
                         case "single":
+                        case "essay":
                             return QuestionType.OpenEndedSingle;
                         case "multi":
                             return QuestionType.OpenEndedMulti;

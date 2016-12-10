@@ -4,6 +4,10 @@ namespace SurveyMonkeyToxAPI.Models.QuestionTypes
 {
     public interface IQuestionType
     {
-        JObject GetResultxAPI(Response response);
+        string GetVerb();
+
+        JObject GetReadableVerb();
+
+        JObject GetResultxAPI(JObject questionResponse);
     }
 }
