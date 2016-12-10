@@ -4,6 +4,6 @@ namespace SurveyMonkeyToxAPI.Models.QuestionTypes
 {
     public interface IQuestionType
     {
-        JObject GetxAPIStatement();
+        JObject GetResultxAPI(Response response);
     }
 }

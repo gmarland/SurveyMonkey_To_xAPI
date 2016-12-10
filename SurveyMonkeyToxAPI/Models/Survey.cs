@@ -1,11 +1,14 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SurveyMonkeyToxAPI.Models
 {
     public class Survey
     {
+        #region Constructors
+
         public Survey(string surveyJSON)
         {
             JObject surveyJObject = JObject.Parse(surveyJSON);
@@ -17,6 +20,60 @@ namespace SurveyMonkeyToxAPI.Models
         {
             PopulateSurvey(surveyJObject);
         }
+
+        #endregion
+
+        #region Public Methods
+
+        public IList<Question> GetValidQuestions(IList<string> emailQuestionIds)
+        {
+            List<Question> questions = new List<Question>();
+
+            foreach (Page page in Pages)
+            {
+                questions.AddRange(page.Questions.Where(q => !emailQuestionIds.Contains(q.Id)));
+            }
+
+            return questions;
+        }
+
+        #endregion
+
+        #region Public Methods
+        
+        public JObject GetxAPIStatement(Response response)
+        {
+            JObject surveyxAPI = new JObject();
+
+            surveyxAPI["timestamp"] = DateTime.UtcNow.ToString();
+
+            // add the person who took the survey
+            surveyxAPI["actor"] = new JObject();
+            surveyxAPI["actor"]["objectType"] = "Agent";
+            surveyxAPI["actor"]["mbox"] = "mailto:" + response.Email;
+
+            // add the person who took the survey
+            surveyxAPI["verb"] = new JObject();
+            surveyxAPI["verb"]["id"] = "http://adlnet.gov/expapi/verbs/completed";
+            surveyxAPI["verb"]["display"] = new JObject();
+            surveyxAPI["verb"]["display"]["en-US"] = "completed";
+
+            // add the details of the survey
+            surveyxAPI["object"] = new JObject();
+            surveyxAPI["object"]["id"] = Id;
+            surveyxAPI["object"]["objectType"] = "Activity";
+            surveyxAPI["object"]["definition"] = new JObject();
+            surveyxAPI["object"]["definition"]["type"] = "https://xapinet.org/activities/survey";
+
+            surveyxAPI["result"] = new JObject();
+            surveyxAPI["result"]["completion"] = true;
+
+            return surveyxAPI;
+        }
+
+        #endregion
+
+        #region Private Methods
 
         private void PopulateSurvey(JObject surveyJObject)
         {
@@ -45,11 +102,15 @@ namespace SurveyMonkeyToxAPI.Models
 
             foreach (JObject page in pages)
             {
-                builtPages.Add(new Page(page));
+                builtPages.Add(new Page(Id, page));
             }
 
             return builtPages;
         }
+
+        #endregion
+
+        #region Properties
 
         public string Id { get; set; }
 
@@ -62,5 +123,7 @@ namespace SurveyMonkeyToxAPI.Models
         public DateTime Modified { get; set; }
 
         public IList<Page> Pages { get; set; }
+
+        #endregion
     }
 }

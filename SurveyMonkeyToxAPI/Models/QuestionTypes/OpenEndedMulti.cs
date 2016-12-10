@@ -1,10 +1,18 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Generic;
 
 namespace SurveyMonkeyToxAPI.Models.QuestionTypes
 {
     public class OpenEndedMulti : IQuestionType
     {
+        private readonly string _verb = "http://adlnet.gov/expapi/verbs/responded";
+
+        private readonly Dictionary<string, string> _verbDisplays = new Dictionary<string, string>()
+        {
+            { "en", "responded" }
+        };
+
         private JArray _rows;
 
         public OpenEndedMulti(JObject questionData)
@@ -13,7 +21,7 @@ namespace SurveyMonkeyToxAPI.Models.QuestionTypes
             else _rows = new JArray();
         }
 
-        public JObject GetxAPIStatement()
+        public JObject GetResultxAPI(Response response)
         {
             throw new NotImplementedException();
         }

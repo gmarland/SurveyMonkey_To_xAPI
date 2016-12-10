@@ -6,10 +6,18 @@ namespace SurveyMonkeyToxAPI.Models
 {
     public class Page
     {
-        public Page(JObject pageJObject)
+        #region Constructors
+
+        public Page(string surveyId, JObject pageJObject)
         {
+            SurveyId = surveyId;
+
             PopulatePage(pageJObject);
         }
+
+        #endregion
+
+        #region Private Methods
 
         private void PopulatePage(JObject pageJObject)
         {
@@ -35,11 +43,17 @@ namespace SurveyMonkeyToxAPI.Models
 
             foreach (JObject question in questions)
             {
-                builtQuestions.Add(new Question(question));
+                builtQuestions.Add(new Question(SurveyId, question));
             }
 
             return builtQuestions;
         }
+
+        #endregion
+
+        #region Properties
+
+        public string SurveyId { get; set; }
 
         public string Id { get; set; }
 
@@ -50,5 +64,7 @@ namespace SurveyMonkeyToxAPI.Models
         public int Position { get; set; }
 
         public IList<Question> Questions { get; set; }
+
+        #endregion
     }
 }

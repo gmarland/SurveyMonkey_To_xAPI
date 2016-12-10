@@ -7,29 +7,72 @@ namespace SurveyMonkeyToxAPI.Models
 {
     public class Question
     {
-        public Question(JObject questionData)
+        #region Constructors
+
+        public Question(string surveyId, JObject questionData)
         {
+            SurveyId = surveyId;
+
             if (questionData["id"] != null) Id = (string)questionData["id"];
             else throw new Exception("A quesion id could not be found");
 
             Heading = GetHeading(questionData);
+            if (string.IsNullOrEmpty(Heading)) throw new Exception("A question could not be found for question ID " + Id);
 
             Position = GetPosition(questionData);
 
             QuestionType = GetQuestionType(questionData);
 
             QuestionModule = QuestionTypeFactory.GetQuestionTypeModule(QuestionType, questionData);
+            if (QuestionModule == null) throw new Exception("A question module could not be found for " + QuestionType.ToString());
         }
 
-        public string Id { get; set; }
+        #endregion
 
-        public string Heading { get; set; }
+        #region Public Methods
 
-        public int Position { get; set; }
+        public JObject GetxAPIStatement(Response response)
+        {
+            // the identifier of the statement
+            JObject questionxAPI = new JObject();
+            questionxAPI["id"] = System.Guid.NewGuid().ToString();
+            questionxAPI["timestamp"] = DateTime.UtcNow.ToString();
 
-        public QuestionType QuestionType { get; set; }
+            // add the person who took the survey
+            questionxAPI["actor"] = new JObject();
+            questionxAPI["actor"]["objectType"] = "Agent";
+            questionxAPI["actor"]["mbox"] = "mailto:" + response.Email;
 
-        public IQuestionType QuestionModule { get; set; }
+            questionxAPI["result"] = QuestionModule.GetResultxAPI(response);
+
+            // add details about the question
+            questionxAPI["object"] = new JObject();
+            questionxAPI["object"]["id"] = Id;
+            questionxAPI["object"]["objectType"] = "Activity";
+            questionxAPI["object"]["definition"] = new JObject();
+            questionxAPI["object"]["definition"]["name"] = new JObject();
+            questionxAPI["object"]["definition"]["name"]["en-US"] = Heading;
+            questionxAPI["object"]["definition"]["name"]["type"] = "http://adlnet.gov/expapi/activities/question";
+
+            // add the context of the survey it comes from
+            questionxAPI["context"] = new JObject();
+            questionxAPI["context"]["contextActivities"] = new JObject();
+            questionxAPI["context"]["contextActivities"]["parent"] = new JArray();
+
+            JObject surveyDetail = new JObject();
+            surveyDetail["id"] = SurveyId;
+            surveyDetail["objectType"] = "Activity";
+            surveyDetail["definition"] = new JObject();
+            surveyDetail["definition"]["type"] = "https://xapinet.org/activities/survey";
+
+            ((JArray)questionxAPI["context"]["contextActivities"]["parent"]).Add(surveyDetail);
+
+            return questionxAPI;
+        }
+
+        #endregion
+
+        #region Private Methods
 
         private string GetHeading(JObject questionData)
         {
@@ -42,7 +85,7 @@ namespace SurveyMonkeyToxAPI.Models
 
             return string.Empty;
         }
-        
+
         private int GetPosition(JObject questionData)
         {
             if (questionData["position"] != null)
@@ -61,5 +104,23 @@ namespace SurveyMonkeyToxAPI.Models
             if (!string.IsNullOrEmpty(family) && !string.IsNullOrEmpty(subtype)) return QuestionTypeFactory.GetQuestionType(family, subtype);
             else return QuestionType.Unknown;
         }
+
+        #endregion
+
+        #region Properties
+
+        public string SurveyId { get; set; }
+
+        public string Id { get; set; }
+
+        public string Heading { get; set; }
+
+        public int Position { get; set; }
+
+        public QuestionType QuestionType { get; set; }
+
+        public IQuestionType QuestionModule { get; set; }
+
+        #endregion
     }
 }

@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Factories\QuestionTypeFactory.cs" />
+    <Compile Include="Helpers\TextHelper.cs" />
     <Compile Include="ITranslation.cs" />
     <Compile Include="Models\Page.cs" />
     <Compile Include="Models\Question.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="Models\QuestionTypes\Single.cs" />
     <Compile Include="Models\Response.cs" />
     <Compile Include="Models\Survey.cs" />
+    <Compile Include="Models\SurveyResponses.cs" />
     <Compile Include="Translation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

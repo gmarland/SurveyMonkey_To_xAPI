@@ -1,10 +1,18 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Generic;
 
 namespace SurveyMonkeyToxAPI.Models.QuestionTypes
 {
     public class MatrixMultiple : IQuestionType
     {
+        private readonly string _verb = "http://adlnet.gov/expapi/verbs/preferred";
+
+        private readonly Dictionary<string, string> _verbDisplays = new Dictionary<string, string>()
+        {
+            { "en", "preferred" }
+        };
+
         private JArray _rows;
         private JArray _choices;
 
@@ -20,7 +28,7 @@ namespace SurveyMonkeyToxAPI.Models.QuestionTypes
             }
         }
 
-        public JObject GetxAPIStatement()
+        public JObject GetResultxAPI(Response response)
         {
             throw new NotImplementedException();
         }
