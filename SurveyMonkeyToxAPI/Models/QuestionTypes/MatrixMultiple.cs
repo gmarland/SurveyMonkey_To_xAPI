@@ -29,7 +29,7 @@ namespace SurveyMonkeyToxAPI.Models.QuestionTypes
             }
         }
 
-        public bool IsMatrix()
+        public bool IsGrouped()
         {
             return true;
         }

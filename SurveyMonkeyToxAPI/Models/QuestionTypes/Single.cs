@@ -22,7 +22,7 @@ namespace SurveyMonkeyToxAPI.Models.QuestionTypes
             else _choices = new JArray();
         }
 
-        public bool IsMatrix()
+        public bool IsGrouped()
         {
             return false;
         }

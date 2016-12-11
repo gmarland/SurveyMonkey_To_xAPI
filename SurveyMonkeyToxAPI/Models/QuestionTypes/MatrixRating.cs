@@ -29,7 +29,7 @@ namespace SurveyMonkeyToxAPI.Models.QuestionTypes
             }
         }
 
-        public bool IsMatrix()
+        public bool IsGrouped()
         {
             return true;
         }
@@ -46,7 +46,43 @@ namespace SurveyMonkeyToxAPI.Models.QuestionTypes
 
         public JObject GetResultxAPI(JObject questionResponse)
         {
-            throw new NotImplementedException();
+            JObject groupingJSON = new JObject();
+            groupingJSON["groupingId"] = (string)questionResponse["id"];
+
+            groupingJSON["questions"] = new JArray();
+
+            foreach(JObject row in _rows)
+            {
+                if (questionResponse["answers"] != null)
+                {
+                    foreach (JObject answer in questionResponse["answers"])
+                    {
+                        JObject question = new JObject();
+
+                        question["id"] = (string)row["id"];
+
+                        if (row["text"] != null) question["text"] = row["text"];
+                        else question["text"] = string.Empty;
+
+                        if ((string)row["id"] == (string)answer["row_id"])
+                        {
+                            foreach (JObject choice in _choices)
+                            {
+                                if ((string)choice["id"] == (string)answer["choice_id"])
+                                {
+                                    if ((choice["text"] != null) && (!string.IsNullOrEmpty((string)choice["text"]))) question["response"] = (string)choice["text"];
+                                    else question["response"] = (string)choice["weight"];
+                                    break;
+                                }
+                            }
+                        }
+
+                        ((JArray)groupingJSON["questions"]).Add(question);
+                    }
+                }
+            }
+
+            return groupingJSON;
         }
     }
 }

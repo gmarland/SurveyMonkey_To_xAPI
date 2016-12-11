@@ -22,9 +22,9 @@ namespace SurveyMonkeyToxAPI.Models.QuestionTypes
             else _rows = new JArray();
         }
 
-        public bool IsMatrix()
+        public bool IsGrouped()
         {
-            return false;
+            return true;
         }
 
         public string GetVerb()

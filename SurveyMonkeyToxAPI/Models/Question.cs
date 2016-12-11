@@ -2,6 +2,7 @@
 using SurveyMonkeyToxAPI.Factories;
 using SurveyMonkeyToxAPI.Models.QuestionTypes;
 using System;
+using System.Collections.Generic;
 
 namespace SurveyMonkeyToxAPI.Models
 {
@@ -31,7 +32,102 @@ namespace SurveyMonkeyToxAPI.Models
 
         #region Public Methods
 
-        public JObject GetxAPIStatement(string email, JObject questionResponse)
+        public JArray GetxAPIStatement(string email, JObject questionResponse)
+        {
+            JArray returnxAPI = new JArray();
+
+            if (QuestionModule.IsGrouped())
+            {
+                JObject groupedResponse = QuestionModule.GetResultxAPI(questionResponse);
+
+                Dictionary<string, int> responseCount = new Dictionary<string, int>();
+                bool containsMutliChoice = false;
+
+                foreach (JObject question in (JArray)groupedResponse["questions"])
+                {
+                    if (!responseCount.ContainsKey((string)question["id"])) responseCount[(string)question["id"]] = 1;
+                    else
+                    {
+                        responseCount[(string)question["id"]]++;
+                        containsMutliChoice = true;
+                    }
+                }
+
+                if (containsMutliChoice)
+                {
+                    Dictionary<string, JObject> responses = new Dictionary<string, JObject>();
+
+                    foreach (string key in responseCount.Keys)
+                    {
+                        foreach (JObject question in (JArray)groupedResponse["questions"])
+                        {
+                            if (key == (string)question["id"])
+                            {
+                                if (!responses.ContainsKey(key))
+                                {
+                                    responses[key] = new JObject();
+                                    responses[key]["extensions"] = new JObject();
+                                }
+
+                                responses[key]["extensions"][(string)question["id"]] = (string)question["response"];
+                            }
+                        }
+                    }
+
+                    foreach (string key in responses.Keys)
+                    {
+                        string questionText = Heading;
+
+                        foreach (JObject question in (JArray)groupedResponse["questions"])
+                        {
+                            if ((key == (string)question["id"]) && (!string.IsNullOrEmpty((string)question["text"])))
+                            {
+                                questionText = (string)question["text"];
+                                break;
+                            }
+                        }
+
+                        returnxAPI.Add(CreatexAPIStatement(email, questionText, responses[key]));
+                    }
+                }
+                else
+                {
+                    foreach (JObject question in (JArray)groupedResponse["questions"])
+                    {
+                        string questionText = Heading;
+                        if (!string.IsNullOrEmpty((string)question["text"])) questionText = (string)question["text"];
+
+                        JObject response = new JObject();
+                        response["response"] = (string)question["response"];
+
+                        returnxAPI.Add(CreatexAPIStatement(email, questionText, response));
+                    }
+                }
+
+                foreach (JObject responseStatement in returnxAPI)
+                {
+                    responseStatement["grouping"] = new JObject();
+                    responseStatement["grouping"]["id"] = (string)groupedResponse["id"];
+                    responseStatement["grouping"]["objectType"] = "Activity";
+                    responseStatement["grouping"]["definition"] = new JObject();
+                    responseStatement["grouping"]["definition"]["name"] = new JObject();
+                    responseStatement["grouping"]["definition"]["name"]["en"] = Heading;
+                    responseStatement["grouping"]["definition"]["name"]["type"] = "http://adlnet.gov/expapi/activities/question";
+                }
+            }
+            else
+            {
+                returnxAPI.Add(CreatexAPIStatement(email, Heading, QuestionModule.GetResultxAPI(questionResponse)));
+            }
+            
+            return returnxAPI;
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        private JObject CreatexAPIStatement(string email, string questionText, JObject questionResponse)
         {
             // the identifier of the statement
             JObject questionxAPI = new JObject();
@@ -47,7 +143,7 @@ namespace SurveyMonkeyToxAPI.Models
             questionxAPI["verb"]["id"] = QuestionModule.GetVerb();
             questionxAPI["verb"]["display"] = QuestionModule.GetReadableVerb();
 
-            questionxAPI["result"] = QuestionModule.GetResultxAPI(questionResponse);
+            questionxAPI["result"] = questionResponse;
 
             // add details about the question
             questionxAPI["object"] = new JObject();
@@ -55,7 +151,7 @@ namespace SurveyMonkeyToxAPI.Models
             questionxAPI["object"]["objectType"] = "Activity";
             questionxAPI["object"]["definition"] = new JObject();
             questionxAPI["object"]["definition"]["name"] = new JObject();
-            questionxAPI["object"]["definition"]["name"]["en-US"] = Heading;
+            questionxAPI["object"]["definition"]["name"]["en-US"] = questionText;
             questionxAPI["object"]["definition"]["name"]["type"] = "http://adlnet.gov/expapi/activities/question";
 
             // add the context of the survey it comes from
@@ -73,10 +169,6 @@ namespace SurveyMonkeyToxAPI.Models
 
             return questionxAPI;
         }
-
-        #endregion
-
-        #region Private Methods
 
         private string GetHeading(JObject questionData)
         {
