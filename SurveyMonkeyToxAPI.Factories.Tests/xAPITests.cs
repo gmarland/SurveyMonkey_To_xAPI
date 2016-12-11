@@ -44,6 +44,7 @@ namespace SurveyMonkeyToxAPI.Factories.Tests
 
                         JObject questionxAPIStatement = question.GetxAPIStatement(responses[i].Email, questionResponse);
 
+                        Assert.AreNotEqual(questionResponse.Count, 0);
                     }
                 }
             }

@@ -4,6 +4,8 @@ namespace SurveyMonkeyToxAPI.Models.QuestionTypes
 {
     public interface IQuestionType
     {
+        bool IsMatrix();
+
         string GetVerb();
 
         JObject GetReadableVerb();

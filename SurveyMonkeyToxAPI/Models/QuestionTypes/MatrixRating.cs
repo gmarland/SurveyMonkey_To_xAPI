@@ -29,6 +29,11 @@ namespace SurveyMonkeyToxAPI.Models.QuestionTypes
             }
         }
 
+        public bool IsMatrix()
+        {
+            return true;
+        }
+
         public string GetVerb()
         {
             return _verb;

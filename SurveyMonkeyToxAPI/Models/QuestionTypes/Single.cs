@@ -22,6 +22,11 @@ namespace SurveyMonkeyToxAPI.Models.QuestionTypes
             else _choices = new JArray();
         }
 
+        public bool IsMatrix()
+        {
+            return false;
+        }
+
         public string GetVerb()
         {
             return _verb;
