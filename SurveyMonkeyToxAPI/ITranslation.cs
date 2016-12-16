@@ -4,6 +4,6 @@ namespace SurveyMonkeyToxAPI
 {
     public interface ITranslation
     {
-        JArray GetxAPIStatements(string surveyId);
+        JArray GetSurveyxAPI(string surveyId);
     }
 }

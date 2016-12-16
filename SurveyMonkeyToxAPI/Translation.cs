@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
+using SurveyMonkeyToxAPI.Helpers;
 using SurveyMonkeyToxAPI.Models;
+using System;
 using System.Collections.Generic;
 
 namespace SurveyMonkeyToxAPI
@@ -11,6 +13,18 @@ namespace SurveyMonkeyToxAPI
         public Translation(string token)
         {
             _token = token;
+        }
+
+        public JArray GetSurveyxAPI(string surveyId)
+        {
+            if (!string.IsNullOrEmpty(_token))
+            {
+                string surveyJSON = SurveyMonkeyHelper.GetSurvey(_token, surveyId);
+                string responseJSON = SurveyMonkeyHelper.GetResponses(_token, surveyId);
+
+                return CreatexAPIStatements(surveyJSON, responseJSON);
+            }
+            else throw new Exception("A valid token has not been provided");
         }
 
         public JArray CreatexAPIStatements(string surveyJSON, string responseJSON)
