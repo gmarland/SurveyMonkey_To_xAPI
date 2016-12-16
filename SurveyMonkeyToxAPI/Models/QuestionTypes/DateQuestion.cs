@@ -59,15 +59,9 @@ namespace SurveyMonkeyToxAPI.Models.QuestionTypes
 
                         if ((string)row["id"] == (string)answer["row_id"])
                         {
-                            foreach (JObject choice in _choices)
-                            {
-                                if ((string)choice["id"] == (string)answer["choice_id"])
-                                {
-                                    if ((choice["text"] != null) && (!string.IsNullOrEmpty((string)choice["text"]))) question["response"] = (string)choice["text"];
-                                    else question["response"] = (string)choice["weight"];
-                                    break;
-                                }
-                            }
+                            if (answer["text"] != null) question["response"] = (string)answer["text"];
+                            else question["response"] = string.Empty;
+                            break;
                         }
 
                         ((JArray)groupingJSON["questions"]).Add(question);
