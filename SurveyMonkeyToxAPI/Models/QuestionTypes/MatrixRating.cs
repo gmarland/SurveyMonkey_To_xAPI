@@ -53,33 +53,35 @@ namespace SurveyMonkeyToxAPI.Models.QuestionTypes
 
             foreach(JObject row in _rows)
             {
+                JObject question = new JObject();
+
+                question["id"] = (string)row["id"];
+
+                if (row["text"] != null) question["text"] = row["text"];
+                else question["text"] = string.Empty;
+
                 if (questionResponse["answers"] != null)
                 {
                     foreach (JObject answer in questionResponse["answers"])
                     {
-                        JObject question = new JObject();
-
-                        question["id"] = (string)row["id"];
-
-                        if (row["text"] != null) question["text"] = row["text"];
-                        else question["text"] = string.Empty;
-
                         if ((string)row["id"] == (string)answer["row_id"])
                         {
                             foreach (JObject choice in _choices)
                             {
                                 if ((string)choice["id"] == (string)answer["choice_id"])
                                 {
+                                    question["answer_id"] = (string)answer["choice_id"];
+
                                     if ((choice["text"] != null) && (!string.IsNullOrEmpty((string)choice["text"]))) question["response"] = (string)choice["text"];
                                     else question["response"] = (string)choice["weight"];
                                     break;
                                 }
                             }
                         }
-
-                        ((JArray)groupingJSON["questions"]).Add(question);
                     }
                 }
+
+                ((JArray)groupingJSON["questions"]).Add(question);
             }
 
             return groupingJSON;

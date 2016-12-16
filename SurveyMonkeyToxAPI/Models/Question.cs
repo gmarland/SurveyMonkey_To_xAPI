@@ -69,7 +69,7 @@ namespace SurveyMonkeyToxAPI.Models
                                     responses[key]["extensions"] = new JObject();
                                 }
 
-                                responses[key]["extensions"][(string)question["id"]] = (string)question["response"];
+                                responses[key]["extensions"][(string)question["answer_id"]] = (string)question["response"];
                             }
                         }
                     }

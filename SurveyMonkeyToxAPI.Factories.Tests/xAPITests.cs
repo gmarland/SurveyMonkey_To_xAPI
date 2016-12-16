@@ -28,8 +28,8 @@ namespace SurveyMonkeyToxAPI.Factories.Tests
 
             Assert.AreEqual(2, responses.Count);
 
-            for (int i=0; i<responses.Count; i++)
-            { 
+            for (int i = 0; i < responses.Count; i++)
+            {
                 foreach (Question question in questions)
                 {
                     if (i == 0)
@@ -47,6 +47,22 @@ namespace SurveyMonkeyToxAPI.Factories.Tests
                         Assert.AreNotEqual(questionResponse.Count, 0);
                     }
                 }
+            }
+        }
+
+        [TestMethod]
+        public void TestTotalSurveyxAPIResponses()
+        {
+            Translation translation = new Translation(string.Empty);
+
+            JArray xAPIStatements = translation.CreatexAPIStatements(_surveyJSON, _responseJSON);
+
+            Assert.AreEqual(32, xAPIStatements.Count);
+
+            foreach (JObject xAPIStatement in xAPIStatements)
+            {
+                Assert.IsNotNull(xAPIStatement["result"]);
+                Assert.IsTrue((xAPIStatement["result"]["response"] != null) || (xAPIStatement["result"]["extensions"] != null) || (xAPIStatement["result"]["completion"] != null));
             }
         }
     }

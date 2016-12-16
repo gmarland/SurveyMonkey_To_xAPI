@@ -39,6 +39,8 @@ namespace SurveyMonkeyToxAPI.Models.QuestionTypes
 
         public JObject GetResultxAPI(JObject questionResponse)
         {
+            JObject result = new JObject();
+
             if (questionResponse["answers"] != null)
             {
                 foreach (JObject answer in (JArray)questionResponse["answers"])
@@ -47,7 +49,6 @@ namespace SurveyMonkeyToxAPI.Models.QuestionTypes
                     {
                         if (((string)choice["id"] != null) && ((string)choice["id"] != (string)answer["choice_id"]))
                         {
-                            JObject result = new JObject();
                             result["response"] = (string)choice["text"];
 
                             return result;
@@ -56,7 +57,9 @@ namespace SurveyMonkeyToxAPI.Models.QuestionTypes
                 }
             }
 
-            return new JObject();
+            result["response"] = null;
+
+            return result;
         }
     }
 }

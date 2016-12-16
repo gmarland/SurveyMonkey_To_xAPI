@@ -39,11 +39,11 @@ namespace SurveyMonkeyToxAPI.Models.QuestionTypes
 
         public JObject GetResultxAPI(JObject questionResponse)
         {
+            JObject result = new JObject();
+            result["extensions"] = new JObject();
+
             if (questionResponse["answers"] != null)
             {
-                JObject result = new JObject();
-                result["extensions"] = new JObject();
-
                 foreach (JObject answer in (JArray)questionResponse["answers"])
                 {
                     foreach (JObject choice in _choices)
@@ -58,7 +58,7 @@ namespace SurveyMonkeyToxAPI.Models.QuestionTypes
                 return result;
             }
 
-            return new JObject();
+            return result;
         }
     }
 }

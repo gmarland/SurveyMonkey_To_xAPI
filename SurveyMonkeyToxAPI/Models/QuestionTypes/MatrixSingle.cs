@@ -70,6 +70,8 @@ namespace SurveyMonkeyToxAPI.Models.QuestionTypes
                             {
                                 if ((string)choice["id"] == (string)answer["choice_id"])
                                 {
+                                    question["answer_id"] = (string)answer["choice_id"];
+
                                     if ((choice["text"] != null) && (!string.IsNullOrEmpty((string)choice["text"]))) question["response"] = (string)choice["text"];
                                     else question["response"] = (string)choice["weight"];
                                     break;

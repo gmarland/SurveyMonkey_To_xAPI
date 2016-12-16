@@ -35,13 +35,14 @@ namespace SurveyMonkeyToxAPI.Models.QuestionTypes
 
         public JObject GetResultxAPI(JObject questionResponse)
         {
+            JObject result = new JObject();
+
             if (questionResponse["answers"] != null)
             {
                 foreach (JObject answer in (JArray)questionResponse["answers"])
                 {
                     if (answer["text"] != null)
                     {
-                        JObject result = new JObject();
                         result["response"] = (string)answer["text"];
 
                         return result;
@@ -49,7 +50,9 @@ namespace SurveyMonkeyToxAPI.Models.QuestionTypes
                 }
             }
 
-            return new JObject();
+            result["response"] = null;
+
+            return result;
         }
     }
 }
