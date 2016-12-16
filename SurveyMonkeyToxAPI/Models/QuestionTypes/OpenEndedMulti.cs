@@ -39,7 +39,35 @@ namespace SurveyMonkeyToxAPI.Models.QuestionTypes
 
         public JObject GetResultxAPI(JObject questionResponse)
         {
-            throw new NotImplementedException();
+            JObject groupingJSON = new JObject();
+            groupingJSON["groupingId"] = (string)questionResponse["id"];
+
+            groupingJSON["questions"] = new JArray();
+
+            foreach (JObject row in _rows)
+            {
+                if (questionResponse["answers"] != null)
+                {
+                    foreach (JObject answer in questionResponse["answers"])
+                    {
+                        JObject question = new JObject();
+
+                        question["id"] = (string)row["id"];
+
+                        if (row["text"] != null) question["text"] = row["text"];
+                        else question["text"] = string.Empty;
+
+                        if ((string)row["id"] == (string)answer["row_id"])
+                        {
+                            if (answer["text"] != null) question["response"] = (string)answer["text"];
+                        }
+
+                        ((JArray)groupingJSON["questions"]).Add(question);
+                    }
+                }
+            }
+
+            return groupingJSON;
         }
     }
 }

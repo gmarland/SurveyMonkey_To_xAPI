@@ -39,7 +39,26 @@ namespace SurveyMonkeyToxAPI.Models.QuestionTypes
 
         public JObject GetResultxAPI(JObject questionResponse)
         {
-            throw new NotImplementedException();
+            if (questionResponse["answers"] != null)
+            {
+                JObject result = new JObject();
+                result["extensions"] = new JObject();
+
+                foreach (JObject answer in (JArray)questionResponse["answers"])
+                {
+                    foreach (JObject choice in _choices)
+                    {
+                        if (((string)choice["id"] != null) && ((string)choice["id"] != (string)answer["choice_id"]))
+                        {
+                            result["extensions"][(string)answer["choice_id"]] = (string)choice["text"];
+                        }
+                    }
+                }
+
+                return result;
+            }
+
+            return new JObject();
         }
     }
 }
