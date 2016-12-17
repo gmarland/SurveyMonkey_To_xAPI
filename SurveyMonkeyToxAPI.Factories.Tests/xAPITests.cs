@@ -64,6 +64,8 @@ namespace SurveyMonkeyToxAPI.Factories.Tests
                 Assert.IsNotNull(xAPIStatement["result"]);
                 Assert.IsTrue((xAPIStatement["result"]["response"] != null) || (xAPIStatement["result"]["extensions"] != null) || (xAPIStatement["result"]["completion"] != null));
             }
+
+            string xapi = xAPIStatements.ToString();
         }
     }
 }
